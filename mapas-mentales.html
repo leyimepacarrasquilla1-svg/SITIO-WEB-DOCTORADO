@@ -1,24 +1,1082 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Mapas mentales del Doctorado en Educación">
-<title>Mapas Mentales | Portafolio Doctoral</title>
-<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Mapas mentales | Portafolio Doctoral</title>
+
+  <style>
+    :root {
+      --azul: #0b4fb3;
+      --azul-oscuro: #082d67;
+      --verde: #198754;
+      --fondo: #f4f7fb;
+      --blanco: #ffffff;
+      --texto: #253047;
+      --texto-suave: #667085;
+      --borde: #dde6f1;
+      --sombra: 0 18px 42px rgba(8, 45, 103, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--texto);
+
+      background:
+        radial-gradient(circle at 8% 8%, #dceaff 0, transparent 24%),
+        radial-gradient(circle at 92% 10%, #def4e7 0, transparent 23%),
+        var(--fondo);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+    .contenedor {
+      width: min(1160px, calc(100% - 32px));
+      margin: auto;
+    }
+
+    /* ENCABEZADO */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(11, 79, 179, 0.1);
+    }
+
+    .navegacion {
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .marca {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logos {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .logos img {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+      background: white;
+      border-radius: 11px;
+      padding: 4px;
+    }
+
+    .marca strong {
+      display: block;
+      color: var(--azul-oscuro);
+    }
+
+    .marca small {
+      color: var(--texto-suave);
+    }
+
+    .acciones-navegacion {
+      display: flex;
+      gap: 9px;
+    }
+
+    .boton {
+      border: 1px solid var(--borde);
+      background: white;
+      color: var(--azul-oscuro);
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .boton:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(8, 45, 103, 0.12);
+    }
+
+    .boton-primario {
+      background: var(--azul);
+      border-color: var(--azul);
+      color: white;
+    }
+
+    .boton-verde {
+      background: var(--verde);
+      border-color: var(--verde);
+      color: white;
+    }
+
+    /* PRESENTACIÓN */
+
+    .presentacion {
+      padding: 58px 0 32px;
+    }
+
+    .presentacion-grid {
+      display: grid;
+      grid-template-columns: 1fr 180px;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .etiqueta {
+      display: inline-block;
+      background: #e8f7ef;
+      color: var(--verde);
+      padding: 8px 13px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.88rem;
+    }
+
+    h1 {
+      margin: 15px 0 0;
+      color: var(--azul-oscuro);
+      font-size: clamp(2.4rem, 5vw, 4.8rem);
+      line-height: 1;
+      letter-spacing: -0.045em;
+    }
+
+    h1 span {
+      color: var(--azul);
+    }
+
+    .presentacion p {
+      max-width: 760px;
+      color: var(--texto-suave);
+      font-size: 1.05rem;
+    }
+
+    .ilustracion {
+      height: 170px;
+      border-radius: 36px;
+      background: linear-gradient(145deg, #ffffff, #e8f1ff);
+      border: 1px solid var(--borde);
+      display: grid;
+      place-items: center;
+      font-size: 5rem;
+      box-shadow: var(--sombra);
+    }
+
+    /* CONTROLES */
+
+    .controles {
+      display: grid;
+      grid-template-columns: 1fr 220px auto;
+      gap: 12px;
+      background: white;
+      border: 1px solid var(--borde);
+      border-radius: 20px;
+      padding: 17px;
+      box-shadow: 0 12px 28px rgba(8, 45, 103, 0.07);
+    }
+
+    .campo {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--borde);
+      border-radius: 12px;
+      background: #fbfdff;
+      outline: none;
+    }
+
+    .campo:focus {
+      border-color: var(--azul);
+      box-shadow: 0 0 0 4px rgba(11, 79, 179, 0.08);
+    }
+
+    .informacion {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 18px 0;
+    }
+
+    .indicador {
+      background: white;
+      border: 1px solid var(--borde);
+      border-radius: 999px;
+      padding: 8px 12px;
+      color: var(--texto-suave);
+    }
+
+    .indicador strong {
+      color: var(--azul-oscuro);
+    }
+
+    /* TARJETAS */
+
+    .galeria {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding-bottom: 70px;
+    }
+
+    .tarjeta {
+      --color: #0b4fb3;
+
+      min-height: 300px;
+      display: flex;
+      flex-direction: column;
+      background: white;
+      border: 1px solid var(--borde);
+      border-radius: 23px;
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(8, 45, 103, 0.08);
+      transition: 0.22s;
+    }
+
+    .tarjeta:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 38px rgba(8, 45, 103, 0.15);
+    }
+
+    .franja {
+      height: 8px;
+      background: var(--color);
+    }
+
+    .tarjeta-contenido {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .icono {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: color-mix(in srgb, var(--color) 13%, white);
+      display: grid;
+      place-items: center;
+      font-size: 1.55rem;
+      margin-bottom: 15px;
+    }
+
+    .modulo {
+      color: var(--color);
+      font-size: 0.76rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .tarjeta h2 {
+      color: var(--azul-oscuro);
+      font-size: 1.22rem;
+      line-height: 1.15;
+      margin: 8px 0;
+    }
+
+    .tarjeta p {
+      color: var(--texto-suave);
+      font-size: 0.94rem;
+      margin: 0;
+      flex: 1;
+    }
+
+    .acciones-tarjeta {
+      display: flex;
+      gap: 8px;
+      margin-top: 19px;
+    }
+
+    .abrir-mapa {
+      flex: 1;
+      text-align: center;
+      background: var(--color);
+      color: white;
+      border-radius: 11px;
+      padding: 10px;
+      font-weight: 800;
+    }
+
+    .boton-icono {
+      width: 41px;
+      height: 41px;
+      border: 1px solid var(--borde);
+      background: white;
+      border-radius: 11px;
+      cursor: pointer;
+    }
+
+    .sin-resultados {
+      grid-column: 1 / -1;
+      text-align: center;
+      background: white;
+      border: 2px dashed var(--borde);
+      border-radius: 22px;
+      padding: 55px 20px;
+      color: var(--texto-suave);
+    }
+
+    /* FORMULARIO MODAL */
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      background: rgba(3, 18, 39, 0.72);
+      place-items: center;
+      padding: 18px;
+    }
+
+    .modal.visible {
+      display: grid;
+    }
+
+    .modal-caja {
+      width: min(680px, 100%);
+      max-height: 92vh;
+      overflow: auto;
+      background: white;
+      border-radius: 24px;
+      padding: 26px;
+      position: relative;
+    }
+
+    .cerrar {
+      position: absolute;
+      right: 13px;
+      top: 13px;
+      width: 38px;
+      height: 38px;
+      border: none;
+      border-radius: 50%;
+      background: #edf2f8;
+      color: var(--azul-oscuro);
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .modal h2 {
+      margin: 0;
+      color: var(--azul-oscuro);
+    }
+
+    .modal-caja > p {
+      color: var(--texto-suave);
+    }
+
+    .formulario-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 13px;
+    }
+
+    .grupo {
+      display: grid;
+      gap: 6px;
+    }
+
+    .grupo-completo {
+      grid-column: 1 / -1;
+    }
+
+    .grupo label {
+      font-weight: 800;
+      color: var(--azul-oscuro);
+      font-size: 0.9rem;
+    }
+
+    textarea.campo {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .aviso {
+      background: #fff8dc;
+      border: 1px solid #f1da78;
+      color: #6d5600;
+      padding: 11px 13px;
+      border-radius: 12px;
+      margin-top: 14px;
+      font-size: 0.9rem;
+    }
+
+    .acciones-formulario {
+      display: flex;
+      justify-content: flex-end;
+      gap: 9px;
+      margin-top: 19px;
+    }
+
+    /* PIE DE PÁGINA */
+
+    footer {
+      background: #061f46;
+      color: white;
+      padding: 27px 0;
+    }
+
+    .pie {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .pie p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .pie a {
+      font-weight: 800;
+    }
+
+    @media (max-width: 930px) {
+      .galeria {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .controles {
+        grid-template-columns: 1fr 180px;
+      }
+
+      .controles .boton-primario {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 690px) {
+      .marca small,
+      .texto-boton {
+        display: none;
+      }
+
+      .presentacion-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .ilustracion {
+        width: 140px;
+        height: 140px;
+        margin: auto;
+        font-size: 4rem;
+      }
+
+      .controles,
+      .galeria,
+      .formulario-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .controles .boton-primario,
+      .grupo-completo {
+        grid-column: auto;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div class="top"><div class="wrap"><span>Universidad Pedagógica Experimental Libertador</span><span>Instituto de Mejoramiento Profesional del Magisterio</span></div></div>
-<header><div class="wrap nav"><a class="brand" href="index.html"><span>Lady Yiselly Mena Palma</span><small>Doctorado en Educación</small></a><ul class="menu"><li><a href="index.html#actividades">Actividades</a></li><li><a href="index.html#modulos">Módulos</a></li><li><a href="investigacion.html">Investigación</a></li><li><a href="index.html#acerca">Acerca de</a></li></ul></div></header>
-<main><div class="wrap"><a href="index.html" class="back-link">← Volver al inicio</a><section class="section"><div class="section-title"><h2>🧠 Mapas Mentales</h2><p>Representaciones visuales de conceptos, teorías y relaciones fundamentales</p></div><div class="content-grid">
-<div class="content-item"><h3>Mapa Mental - Módulo 01</h3><p>Gestión del cambio en ámbitos educativos</p><p><em>En desarrollo... Próximamente se compartirán los mapas mentales correspondientes a este módulo.</em></p></div>
-<div class="content-item"><h3>Mapa Mental - Módulo 02</h3><p>Desarrollo de proyectos educativos</p><p><em>En desarrollo... Próximamente se compartirán los mapas mentales correspondientes a este módulo.</em></p></div>
-<div class="content-item"><h3>Mapa Mental - Módulo 03</h3><p>Seminario de investigación</p><p><em>En desarrollo... Próximamente se compartirán los mapas mentales correspondientes a este módulo.</em></p></div>
-</div></section></div></main>
-<footer><div class="wrap"><div class="footgrid"><div class="footbrand"><div><strong>Lady Yiselly Mena Palma</strong><small>Doctorado en Educación</small></div></div><div class="foot-links"><a href="index.html">Inicio</a><a href="index.html#actividades">Actividades</a><a href="index.html#modulos">Módulos</a><a href="investigacion.html">Investigación</a></div></div></div></footer>
-<button class="up" id="up" aria-label="Volver arriba">↑</button>
-<script>
-const up=document.getElementById('up');window.addEventListener('scroll',()=>{up.classList.toggle('show',scrollY>500)});up.addEventListener('click',()=>{window.scrollTo({top:0,behavior:'smooth'})});
-</script>
+
+  <header>
+    <div class="contenedor navegacion">
+
+      <a class="marca"
+         href="pagina_principal_portafolio_doctorado_lady_mena.html">
+
+        <div class="logos">
+          <img src="LOGO UPEL(1).png" alt="Logo UPEL">
+          <img src="logo-impm(1).png" alt="Logo IMPM">
+        </div>
+
+        <div>
+          <strong>Galería de mapas mentales</strong>
+          <small>Portafolio doctoral · Lady Yiselly Mena Palma</small>
+        </div>
+      </a>
+
+      <div class="acciones-navegacion">
+
+        <a class="boton"
+           href="pagina_principal_portafolio_doctorado_lady_mena.html">
+          ← <span class="texto-boton">Página principal</span>
+        </a>
+
+        <button class="boton boton-primario" id="botonSuperior">
+          ＋ <span class="texto-boton">Agregar enlace</span>
+        </button>
+
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="presentacion">
+      <div class="contenedor presentacion-grid">
+
+        <div>
+          <span class="etiqueta">
+            🧠 Repositorio visual e interactivo
+          </span>
+
+          <h1>
+            Mis <span>mapas mentales</span>
+          </h1>
+
+          <p>
+            Espacio para reunir los enlaces de los mapas mentales
+            elaborados durante el Doctorado en Educación, organizarlos
+            por módulo y compartirlos con profesores y compañeros.
+          </p>
+        </div>
+
+        <div class="ilustracion">🗺️</div>
+
+      </div>
+    </section>
+
+    <section class="contenedor">
+
+      <div class="controles">
+
+        <input
+          class="campo"
+          id="busqueda"
+          type="search"
+          placeholder="Buscar por título, módulo o descripción…"
+        >
+
+        <select class="campo" id="filtroModulo">
+          <option value="">Todos los módulos</option>
+        </select>
+
+        <button class="boton boton-primario" id="botonAgregar">
+          ＋ Agregar mapa mental
+        </button>
+
+      </div>
+
+      <div class="informacion">
+
+        <span class="indicador">
+          Mapas registrados:
+          <strong id="cantidad">0</strong>
+        </span>
+
+        <span class="indicador">
+          Los cambios se guardan automáticamente en este navegador.
+        </span>
+
+      </div>
+
+      <div class="galeria" id="galeria"></div>
+
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="contenedor pie">
+
+      <p>
+        Lady Yiselly Mena Palma · Doctorado en Educación
+      </p>
+
+      <a href="pagina_principal_portafolio_doctorado_lady_mena.html">
+        Volver al portafolio principal
+      </a>
+
+    </div>
+  </footer>
+
+  <!-- FORMULARIO -->
+
+  <div class="modal" id="modal">
+
+    <div class="modal-caja">
+
+      <button class="cerrar" id="cerrarModal">×</button>
+
+      <h2 id="tituloFormulario">
+        Agregar mapa mental
+      </h2>
+
+      <p>
+        Completa la información y pega el enlace de la página
+        donde publicaste el mapa mental.
+      </p>
+
+      <form id="formulario">
+
+        <input type="hidden" id="identificador">
+
+        <div class="formulario-grid">
+
+          <div class="grupo">
+            <label for="titulo">Título del mapa *</label>
+
+            <input
+              class="campo"
+              id="titulo"
+              required
+              placeholder="Ej.: Organización educativa"
+            >
+          </div>
+
+          <div class="grupo">
+            <label for="modulo">Módulo o asignatura *</label>
+
+            <input
+              class="campo"
+              id="modulo"
+              required
+              placeholder="Ej.: Gestión del cambio"
+            >
+          </div>
+
+          <div class="grupo grupo-completo">
+            <label for="url">Enlace de la página web *</label>
+
+            <input
+              class="campo"
+              id="url"
+              required
+              placeholder="https://... o archivo.html"
+            >
+          </div>
+
+          <div class="grupo grupo-completo">
+            <label for="descripcion">Descripción breve</label>
+
+            <textarea
+              class="campo"
+              id="descripcion"
+              placeholder="Tema y contenido principal del mapa mental."
+            ></textarea>
+          </div>
+
+          <div class="grupo">
+            <label for="color">Color de la tarjeta</label>
+
+            <select class="campo" id="color">
+              <option value="#0b4fb3">Azul</option>
+              <option value="#198754">Verde</option>
+              <option value="#8c5ed8">Morado</option>
+              <option value="#d2673a">Naranja</option>
+              <option value="#087d88">Turquesa</option>
+              <option value="#c48b00">Dorado</option>
+            </select>
+          </div>
+
+          <div class="grupo">
+            <label for="icono">Ícono</label>
+
+            <select class="campo" id="icono">
+              <option>🧠</option>
+              <option>🗺️</option>
+              <option>🏫</option>
+              <option>📚</option>
+              <option>💡</option>
+              <option>🔎</option>
+              <option>🌱</option>
+              <option>⚙️</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="aviso">
+          Verifica que los enlaces permitan el acceso de tus
+          profesores y compañeros.
+        </div>
+
+        <div class="acciones-formulario">
+
+          <button
+            type="button"
+            class="boton"
+            id="cancelar">
+            Cancelar
+          </button>
+
+          <button
+            type="submit"
+            class="boton boton-verde">
+            Guardar mapa mental
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <script>
+    const CLAVE_ALMACENAMIENTO = "mapasMentalesLadyMena";
+
+    const mapaInicial = [
+      {
+        id: "organizacion-educativa",
+        titulo: "Organización educativa",
+        modulo: "Gestión del cambio en ámbitos educativos",
+        url: "mapa_mental_organizacion_educativa_interactivo.html",
+        descripcion:
+          "Concepto, características, elementos e importancia de las organizaciones educativas.",
+        color: "#0b4fb3",
+        icono: "🏫"
+      }
+    ];
+
+    let mapas = cargarMapas();
+    let textoBusqueda = "";
+    let moduloSeleccionado = "";
+
+    const galeria = document.getElementById("galeria");
+    const modal = document.getElementById("modal");
+    const formulario = document.getElementById("formulario");
+
+    function cargarMapas() {
+      try {
+        const datos = JSON.parse(
+          localStorage.getItem(CLAVE_ALMACENAMIENTO)
+        );
+
+        return Array.isArray(datos)
+          ? datos
+          : mapaInicial;
+      } catch (error) {
+        return mapaInicial;
+      }
+    }
+
+    function guardarMapas() {
+      localStorage.setItem(
+        CLAVE_ALMACENAMIENTO,
+        JSON.stringify(mapas)
+      );
+    }
+
+    function crearId() {
+      return crypto.randomUUID
+        ? crypto.randomUUID()
+        : Date.now().toString();
+    }
+
+    function limpiarTexto(texto = "") {
+      return String(texto)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function organizarEnlace(enlace) {
+      const url = enlace.trim();
+
+      if (
+        url.startsWith("http://") ||
+        url.startsWith("https://") ||
+        url.startsWith("./") ||
+        url.startsWith("../") ||
+        url.startsWith("/") ||
+        url.endsWith(".html")
+      ) {
+        return url;
+      }
+
+      return "https://" + url;
+    }
+
+    function actualizarListaModulos() {
+      const filtro = document.getElementById("filtroModulo");
+      const valorActual = filtro.value;
+
+      const modulos = [
+        ...new Set(
+          mapas.map(mapa => mapa.modulo).filter(Boolean)
+        )
+      ].sort();
+
+      filtro.innerHTML =
+        '<option value="">Todos los módulos</option>' +
+        modulos
+          .map(modulo =>
+            `<option value="${limpiarTexto(modulo)}">
+              ${limpiarTexto(modulo)}
+            </option>`
+          )
+          .join("");
+
+      if (modulos.includes(valorActual)) {
+        filtro.value = valorActual;
+      }
+    }
+
+    function mostrarMapas() {
+      actualizarListaModulos();
+
+      const consulta = textoBusqueda
+        .toLowerCase()
+        .trim();
+
+      const resultados = mapas.filter(mapa => {
+        const contenido = [
+          mapa.titulo,
+          mapa.modulo,
+          mapa.descripcion
+        ]
+          .join(" ")
+          .toLowerCase();
+
+        const coincideBusqueda =
+          !consulta ||
+          contenido.includes(consulta);
+
+        const coincideModulo =
+          !moduloSeleccionado ||
+          mapa.modulo === moduloSeleccionado;
+
+        return coincideBusqueda && coincideModulo;
+      });
+
+      document.getElementById("cantidad").textContent =
+        mapas.length;
+
+      if (resultados.length === 0) {
+        galeria.innerHTML = `
+          <div class="sin-resultados">
+            <div style="font-size:4rem">🧠</div>
+
+            <h2>No se encontraron mapas mentales</h2>
+
+            <p>
+              Agrega un nuevo enlace o cambia los filtros.
+            </p>
+          </div>
+        `;
+
+        return;
+      }
+
+      galeria.innerHTML = resultados
+        .map(mapa => `
+          <article
+            class="tarjeta"
+            style="--color:${limpiarTexto(mapa.color)}"
+          >
+
+            <div class="franja"></div>
+
+            <div class="tarjeta-contenido">
+
+              <div class="icono">
+                ${limpiarTexto(mapa.icono)}
+              </div>
+
+              <span class="modulo">
+                ${limpiarTexto(mapa.modulo)}
+              </span>
+
+              <h2>
+                ${limpiarTexto(mapa.titulo)}
+              </h2>
+
+              <p>
+                ${limpiarTexto(
+                  mapa.descripcion ||
+                  "Mapa mental académico del portafolio doctoral."
+                )}
+              </p>
+
+              <div class="acciones-tarjeta">
+
+                <a
+                  class="abrir-mapa"
+                  href="${limpiarTexto(
+                    organizarEnlace(mapa.url)
+                  )}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Abrir mapa ↗
+                </a>
+
+                <button
+                  class="boton-icono"
+                  title="Editar"
+                  onclick="editarMapa('${mapa.id}')"
+                >
+                  ✏️
+                </button>
+
+                <button
+                  class="boton-icono"
+                  title="Eliminar"
+                  onclick="eliminarMapa('${mapa.id}')"
+                >
+                  🗑️
+                </button>
+
+              </div>
+            </div>
+          </article>
+        `)
+        .join("");
+    }
+
+    function abrirFormulario(mapa = null) {
+      document.getElementById("tituloFormulario").textContent =
+        mapa
+          ? "Editar mapa mental"
+          : "Agregar mapa mental";
+
+      document.getElementById("identificador").value =
+        mapa?.id || "";
+
+      document.getElementById("titulo").value =
+        mapa?.titulo || "";
+
+      document.getElementById("modulo").value =
+        mapa?.modulo || "";
+
+      document.getElementById("url").value =
+        mapa?.url || "";
+
+      document.getElementById("descripcion").value =
+        mapa?.descripcion || "";
+
+      document.getElementById("color").value =
+        mapa?.color || "#0b4fb3";
+
+      document.getElementById("icono").value =
+        mapa?.icono || "🧠";
+
+      modal.classList.add("visible");
+      document.body.style.overflow = "hidden";
+    }
+
+    function cerrarFormulario() {
+      modal.classList.remove("visible");
+      document.body.style.overflow = "";
+
+      formulario.reset();
+
+      document.getElementById("identificador").value = "";
+    }
+
+    window.editarMapa = function(id) {
+      const mapa = mapas.find(mapa => mapa.id === id);
+
+      if (mapa) {
+        abrirFormulario(mapa);
+      }
+    };
+
+    window.eliminarMapa = function(id) {
+      if (confirm("¿Estás seguro de que deseas eliminar este mapa mental?")) {
+        mapas = mapas.filter(mapa => mapa.id !== id);
+
+        guardarMapas();
+        mostrarMapas();
+      }
+    };
+
+    formulario.addEventListener("submit", function(evento) {
+      evento.preventDefault();
+
+      const id = document.getElementById("identificador").value;
+
+      const nuevoMapa = {
+        id: id || crearId(),
+        titulo: document.getElementById("titulo").value,
+        modulo: document.getElementById("modulo").value,
+        url: document.getElementById("url").value,
+        descripcion: document.getElementById("descripcion").value,
+        color: document.getElementById("color").value,
+        icono: document.getElementById("icono").value
+      };
+
+      if (id) {
+        const indice = mapas.findIndex(m => m.id === id);
+
+        if (indice !== -1) {
+          mapas[indice] = nuevoMapa;
+        }
+      } else {
+        mapas.push(nuevoMapa);
+      }
+
+      guardarMapas();
+      mostrarMapas();
+      cerrarFormulario();
+    });
+
+    document.getElementById("botonSuperior").addEventListener("click", () => {
+      abrirFormulario();
+    });
+
+    document.getElementById("botonAgregar").addEventListener("click", () => {
+      abrirFormulario();
+    });
+
+    document.getElementById("cerrarModal").addEventListener("click", () => {
+      cerrarFormulario();
+    });
+
+    document.getElementById("cancelar").addEventListener("click", () => {
+      cerrarFormulario();
+    });
+
+    modal.addEventListener("click", (evento) => {
+      if (evento.target === modal) {
+        cerrarFormulario();
+      }
+    });
+
+    document.getElementById("busqueda").addEventListener("input", (evento) => {
+      textoBusqueda = evento.target.value;
+      mostrarMapas();
+    });
+
+    document.getElementById("filtroModulo").addEventListener("change", (evento) => {
+      moduloSeleccionado = evento.target.value;
+      mostrarMapas();
+    });
+
+    mostrarMapas();
+  </script>
+
 </body>
 </html>
